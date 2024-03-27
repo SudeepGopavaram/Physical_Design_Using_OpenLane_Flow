@@ -105,4 +105,56 @@ Die-Size should be able to accomodate the following entities:
 ![image](https://github.com/SudeepGopavaram/Physical_Design_Using_OpenLane_Flow/assets/57873021/95842423-0621-478f-b4e4-85212be5c3e3)
 
 
+# Getting Started With the Flow
+
+**1. Running design synthesis using OpenLane flow and generate required output**
+*Design Used - picorv32a*
+
+```bash
+# Change directory to openlane flow directory
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+# alias docker='docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u $(id -u $USER):$(id -g $USER) efabless/openlane:v0.21'
+# Since we have aliased the long command to 'docker' we can invoke the OpenLANE flow docker sub-system by just running this command
+docker
+```
+
+```tcl
+# Now that we have entered the OpenLANE flow contained docker sub-system we can invoke the OpenLANE flow in the Interactive mode using the following command
+./flow.tcl -interactive
+
+# Now that OpenLANE flow is open we have to input the required packages for proper functionality of the OpenLANE flow
+package require openlane 0.9
+
+# Now the OpenLANE flow is ready to run any design and initially we have to prep the design creating some necessary files and directories for running a specific design which in our case is 'picorv32a'
+prep -design picorv32a
+
+# Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
+
+# Exit from OpenLANE flow
+exit
+
+# Exit from OpenLANE flow docker sub-system
+exit
+```
+
+**2. Calculating Flop Ratio**
+
+```math
+Flop\ Ratio = \frac{Number\ of\ D\ Flip\ Flops}{Total\ Number\ of\ Cells}
+```
+
+```math
+Percentage\ of\ DFF's = Flop\ Ratio * 100
+```
+
+```math
+Flop\ Ratio = \frac{x}{y} = z
+```
+
+```math
+Percentage\ of\ DFF's = Flop\ Ratio * 100
+```
+
 
