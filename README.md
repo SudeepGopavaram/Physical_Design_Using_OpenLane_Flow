@@ -52,6 +52,7 @@ Power planning is also done during the chip planning phase.
 * **DIE-SIZE** - For layout to be created we need to first define the die size and its aspect ratio. Ideally die size should be as small as possible which will allow us to fabricate more chips for a given wafer area, also reducing area reduces the cost of the chip also enables us to achieve a higher yield for smaller die.
 
 Die-Size should be able to accomodate the following entities:
+
 **1. Blocks** - A separate space need to be allocated on the layout for larger instances or blocks or macros. These blocks can obtained after partitioning or it can be functional blocks like processors, memories or analog blocks.
 
 **2. Standard Cell** - Standard cell are placed on a die therefore a dedicated space is allocated for them. Area required for the standard cells can be estimated using the given netlist and the corresponding technology library.
