@@ -24,11 +24,6 @@ Following are inputs during this step and the final output is GDS:
 
 **4. Floorplan** - A floorplan captures the designer's intent about physical design. It defines the size and aspect ratio of a die. It contains location of hard macros, shape, location of various blocks, location of input/output (I/O) pads. It act as a constraint in placing various component and creating a wire layout.
 
-# OpenLane
-It is an automated RTL2GDSII flow which make use of several other opensource tools throughout the run to generate the GDSII like, OpenROAD, Yosys, Magic, Netgen, CVC, SPEF-Extractor, KLayout and other custom script for optimized flow.
-
-Physical design tool determines the location of all instances in a design which decides the clocking structure. It builds the topology of the metal and via layer for all nets in a design. Finally a layout represented in GDS format which contains all the information required for the fabricating a chip.
-
 **Major Tasks**
 
 * Chip Planning
@@ -39,8 +34,15 @@ Physical design tool determines the location of all instances in a design which 
 * ECO (Engineering Change Order)
 * Write GDS
 
+# OpenLane
+It is an automated RTL2GDSII flow which make use of several other opensource tools throughout the run to generate the GDSII like, OpenROAD, Yosys, Magic, Netgen, CVC, SPEF-Extractor, KLayout and other custom script for optimized flow.
+
+Physical design tool determines the location of all instances in a design which decides the clocking structure. It builds the topology of the metal and via layer for all nets in a design. Finally a layout represented in GDS format which contains all the information required for the fabricating a chip.
+
+
 # OpenLane Architecture
-![image](https://github.com/SudeepGopavaram/Physical_Design_Using_OpenLane_Flow/assets/57873021/818110cc-75b8-4540-b5cd-c25a20398606)
+![image](https://github.com/SudeepGopavaram/Physical_Design_Using_OpenLane_Flow/assets/57873021/10499621-3e2f-4f80-b5a6-ffa6fa333f64)
+
 
 RTL2GDSII flow consist of various steps involved which help in converting Register Transfer Level(RTL) to a fabrication ready GDSII(Graphic Design System) format it is a industry standard for data exchange of IC layout.
 
@@ -59,8 +61,7 @@ This repository shows the detailed execution of all the above mentioned steps to
    
    ![image](https://github.com/SudeepGopavaram/Design_and_analysis_of_nmos_and_pmos_using_sky130pdk/assets/57873021/f8f19c5c-1ded-40c1-a87b-82dc2e572bab)
 
-   The [SkyWater](https://www.skywatertechnology.com/technology-and-design-enablement/) Technology Foundry 130nm Process Design Kit (PDK) is a comprehensive collection of files, libraries, and documentation that enables the design and 
-   fabrication of integrated circuits (ICs) using the SkyWater 130nm process technology.
+The [SkyWater](https://www.skywatertechnology.com/technology-and-design-enablement/) Technology Foundry 130nm Process Design Kit (PDK) is a comprehensive collection of files, libraries, and documentation that enables the design and fabrication of integrated circuits (ICs) using the SkyWater 130nm process technology.
 
    The SkyWater130 PDK is typically utilized in conjunction with electronic design automation (EDA) tools, enabling designers to create and verify their IC designs 
    within a familiar design environment. The PDK provides the necessary information for layout design, including design rules, layer information, and guidelines for 
@@ -84,7 +85,7 @@ After partitioning we determine the location of each block and macros. we carry 
 
 Power planning is also done during the chip planning phase.
 
-* **DIE-SIZE** - For layout to be created we need to first define the die size and its aspect ratio. Ideally die size should be as small as possible which will allow us to fabricate more chips for a given wafer area, also reducing area reduces the cost of the chip also enables us to achieve a higher yield for smaller die.
+**DIE-SIZE** - For layout to be created we need to first define the die size and its aspect ratio. Ideally die size should be as small as possible which will allow us to fabricate more chips for a given wafer area, also reducing area reduces the cost of the chip also enables us to achieve a higher yield for smaller die.
 
 Die-Size should be able to accomodate the following entities:
 
