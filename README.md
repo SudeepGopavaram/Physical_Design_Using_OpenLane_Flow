@@ -21,7 +21,7 @@ Following are inputs during this step and the final output is GDS:
 
 **3. Constraints** - Design goals and constraints are provided to physical design tool through various design configuration variables which help to acheive the required result.
 
-**4. Floorplan** - A floorplan captures the designer's intent about physical design
+**4. Floorplan** - A floorplan captures the designer's intent about physical design. It defines the size and aspect ratio of a die. It contains location of hard macros, shape, location of various blocks, location of input/output (I/O) pads. It act as a constraint in placing various component and creating a wire layout.
 
 # OpenLane
 It is an automated RTL2GDSII flow which make use of several other opensource tools throughout the run to generate the GDSII like, OpenROAD, Yosys, Magic, Netgen, CVC, SPEF-Extractor, KLayout and other custom script for optimized flow.
