@@ -150,9 +150,9 @@ docker
 
 ```tcl
 # Now that we have entered the OpenLANE flow contained docker sub-system we can invoke the OpenLANE flow in the Interactive mode using the following command
-./flow.tcl -interactive
+./flow.tcl -interactive 
 
-# Now that OpenLANE flow is open we have to input the required packages for proper functionality of the OpenLANE flow
+# Now that OpenLANE flow is open we have to input the required packages for proper functionality of the OpenLANE flow which retrives all dependencies for running v0.9
 package require openlane 0.9
 
 # Now the OpenLANE flow is ready to run any design and initially we have to prep the design creating some necessary files and directories for running a specific design which in our case is 'picorv32a'
@@ -168,6 +168,12 @@ exit
 exit
 ```
 
+![Screenshot (360)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/3a7c600a-56bf-4f2f-befa-15a41551d9b9)
+
+![Screenshot (361)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/e35a58e3-c35c-4b21-a3d6-a999092a20db)
+
+
+
 **2. Calculating Flop Ratio**
 
 ```math
@@ -178,19 +184,51 @@ Flop\ Ratio = \frac{Number\ of\ D\ Flip\ Flops}{Total\ Number\ of\ Cells}
 Percentage\ of\ DFF's = Flop\ Ratio * 100
 ```
 
+![Screenshot (363)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/4c2b742b-e003-493d-a999-de56758b5aa5)
+
+![Screenshot (362)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/21a4219b-fec5-4fda-8014-7788ba2d420a)
+
+
 ```math
-Flop\ Ratio = \frac{x}{y} = z
+Flop\ Ratio = \frac{1613}{14876} = 0.1084
 ```
 
 ```math
-Percentage\ of\ DFF's = Flop\ Ratio * 100
+Percentage\ of\ DFF's = 0.1084 * 100 = 10.84%
 ```
 
-**2. Florplan and PLacement Stage**
+**2. Florplan and Placement Stage**
 
 
 # Glossary
 * Tech file 
+
+
+![Screenshot (364)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/d191a6c6-a4d3-4a40-88df-68201a23a1f5)
+
+
+![Screenshot (365)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/b16fb76e-6095-477d-b196-ba10181e4072)
+
+
+
+
+![Screenshot (366)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/d8062761-60c0-40d5-af50-2a22e7dff6ff)
+
+![Screenshot (370)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/685dbb65-afe2-4017-b897-94eecd9d11e5)
+
+![Screenshot (371)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/409961df-15b4-4672-839b-391bfe61f806)
+
+
+
+![Screenshot (369)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/058e242f-7196-46ba-a7b6-c4d73327d640)
+
+
+
+![Screenshot (367)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/6078adf0-edf7-4c84-bb40-139a296ceb72)
+
+![Screenshot (368)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/fef07c24-7ca1-46d4-9d1f-080611fc40f3)
+
+
 
 
 
