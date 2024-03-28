@@ -57,6 +57,22 @@ RTL2GDSII flow consist of various steps involved which help in converting Regist
 
 This repository shows the detailed execution of all the above mentioned steps to complete the flow.
 
+### OpenLane Directory Hierarchy:
+
+``` 
+├── OpenLane              -> directory where the tool can be invoked (make mount first)
+│   ├── designs           -> All designs are present in this folder
+│   │   │   ├── picorv32a -> Design used as case study for this flow this contains all the required files to succesfully run the flow like (.v, .sdc, congif files etc)
+│   |   |   ├── ...
+|   |   ├── ...
+├── pdks                 -> contains pdk related files 
+│   ├── skywater-pdk     -> all Skywater 130nm PDKs
+│   ├── open-pdks        -> contains scripts that makes the commerical PDK (which is normally just compatible to commercial tools) to also be compatible with the open-source EDA tool
+│   ├── sky130A          -> pdk variant made especially compatible for open-source tools
+│   │   │  ├── libs.ref  -> files specific to node process (timing lib, cell lef, tech lef) for example is `sky130_fd_sc_hd` (Sky130nm Foundry Standard Cell High Density)  
+│   │   │  ├── libs.tech -> files specific related to the tool (klayout,netgen,magic...) 
+```
+
 **Skywater Technology**
    
    ![image](https://github.com/SudeepGopavaram/Design_and_analysis_of_nmos_and_pmos_using_sky130pdk/assets/57873021/f8f19c5c-1ded-40c1-a87b-82dc2e572bab)
@@ -110,6 +126,19 @@ Die-Size should be able to accomodate the following entities:
 **1. Running design synthesis using OpenLane flow and generate required output**
 *Design Used - picorv32a*
 
+Adding our new design 
+
+```
+make mount
+./flow.tcl -design picorv32a -init_design_config -add_to_designs -config_file config.tcl
+it will create the respective directory and files
+
+picorv32a
+├── config.tcl
+└── src
+1 directory, 1 file
+```
+
 ```bash
 # Change directory to openlane flow directory
 cd Desktop/work/tools/openlane_working_dir/openlane
@@ -156,5 +185,12 @@ Flop\ Ratio = \frac{x}{y} = z
 ```math
 Percentage\ of\ DFF's = Flop\ Ratio * 100
 ```
+
+**2. Florplan and PLacement Stage**
+
+
+# Glossary
+* Tech file 
+
 
 
