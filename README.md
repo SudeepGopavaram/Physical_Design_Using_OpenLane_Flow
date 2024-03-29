@@ -199,10 +199,30 @@ Percentage\ of\ DFF's = 0.1084 * 100 = 10.84%
 
 **2. Florplan and Placement Stage**
 
+**FLOORPLAN STAGE**
 
-# Glossary
-* Tech file 
+There are three styles of floorplan: *fully abutted*, *channel-based*, and *mixed* floorplan
 
+**1. Fully Abutted floorplan** - It has no extra routing resources at the top level so entire top level wiring is done over the macros. We connect the blocks using abutment and pin alignment.
+
+**2. Channel-based floorplan** - In this we ensure to keep gaps between blocks to allow top-level routing, these gaps are reffered to as channels. There is a chance of congestion issues in the channel since all top-level routing goes through it. Some routes through the channel can be longer than a direct path through another block.
+
+**3. Mixed Floorplan** - It is a combination of both abutted and channel-based floorplan style. We abut blocks and create connections by pin alignment wherever possible, also create channels where top-level cells are needed between blocks or cells like clock routing buffers.
+
+**Standard Cell Rows** - after placing object or macros in layout we can allocate the remaining area for standard cell rows, keeping the height of the rows equal to standard cell's height. Standard cell rows are created using abutment which allows adjacent rows to share the supply power rails (Vdd) and ground rails (GND).
+
+**Pin Assignment** - Block location is fixed during the floorplan following by the fixing of position of pins of the blocks along the block boundaries this is known as *pin assignment*. Information required for pin placement is the partitioned netlist, the floorplan, the number of pins on each block and their relative ordering.
+
+**Power Planning** - Chip draws external power through power pads delivering power to each active element of circuit. We make power ring across the periphery of a die and connect appropriate apdn to the power rings. Metal lines run horizontally and vertically in alternate metal layer and vias are added at their intersections this topology is called *mesh grid opology*. In this the horizontal metal lines are called *power rails* and vertical metal lines as *power straps*.
+
+![2stage](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/c2e97cb9-0eb2-4191-a050-e9efd4062c4f)
+
+**PLACEMENT STAGE**
+
+One of the critical task to determine the locations of each entity in a design. We determine the position of larger entities such as memories, analog blocks, macros and input/output (I/O) pads during the floorplan stage. However location of numerous standard cell in decided in placement stage, primary aim for this stage is to make design routable. Placement methodology targets improving the slack of the timimg paths known as timing-driven placement.
+Placement task is divided into multiple tasks like *global placement*, *legalization* followed by the *detailed palcement*
+
+We try to find approximate cell locations by spreading the cells over the layout reducing the cell density cell location is decided by their connectivity and we ignore the attributes of the cell such as its size and pin location this is known as *global placement*. After this cell can overlap and occupy illegal positions which are fixed during the legalization and detailed placement stage.
 
 ![Screenshot (364)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/d191a6c6-a4d3-4a40-88df-68201a23a1f5)
 
@@ -230,5 +250,15 @@ Percentage\ of\ DFF's = 0.1084 * 100 = 10.84%
 
 
 
+# Glossary
 
+**Library Exchange Format (LEF)** : It includes unit definition, maufacturing grid, implant layer, Via, macro, macro pin statement etc
 
+**Design Exchange Format (DEF)** : THis file consist of information regarding placement of macros, I/O pins, standard cells and other physical entities.
+Logic design data contains internal connectivity, grouping information and physical constraints.
+Physical deign data contains routing geometry, placement location and orientation 
+It is an input to various stages in physical design.
+In short it conatains dies are, tracks, components(macros), I/O pins, nets, Halo, vias, metal layers
+
+**Liberty Timimg File (LIB)** : It is a timimg model ontaining the cell delays, setup and hold time requirements. Composite current source (CCS) and non linear delay model (NLDM) are used to generate .lib files.
+Designs are needed to be tested for certain PVT corners and for every PVT corner timing of a cell is different and hence .lib file is for every PVT corner.
