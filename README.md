@@ -75,23 +75,57 @@ This repository shows the detailed execution of all the above mentioned steps to
 
 **Skywater Technology**
    
-   ![image](https://github.com/SudeepGopavaram/Design_and_analysis_of_nmos_and_pmos_using_sky130pdk/assets/57873021/f8f19c5c-1ded-40c1-a87b-82dc2e572bab)
+![image](https://github.com/SudeepGopavaram/Design_and_analysis_of_nmos_and_pmos_using_sky130pdk/assets/57873021/f8f19c5c-1ded-40c1-a87b-82dc2e572bab)
 
 The [SkyWater](https://www.skywatertechnology.com/technology-and-design-enablement/) Technology Foundry 130nm Process Design Kit (PDK) is a comprehensive collection of files, libraries, and documentation that enables the design and fabrication of integrated circuits (ICs) using the SkyWater 130nm process technology.
 
-   The SkyWater130 PDK is typically utilized in conjunction with electronic design automation (EDA) tools, enabling designers to create and verify their IC designs 
-   within a familiar design environment. The PDK provides the necessary information for layout design, including design rules, layer information, and guidelines for 
-   ensuring compatibility with the SkyWater 130nm process technology.
+The SkyWater130 PDK is typically utilized in conjunction with electronic design automation (EDA) tools, enabling designers to create and verify their IC designs 
+within a familiar design environment. The PDK provides the necessary information for layout design, including design rules, layer information, and guidelines for 
+ensuring compatibility with the SkyWater 130nm process technology.
 
-   Overall, the SkyWater130 PDK is an essential resource for IC designers seeking to leverage the capabilities of the SkyWater 130nm process technology. Its 
-   comprehensive set of files, libraries, and guidelines streamline the design process and facilitate the creation of high-quality integrated circuits.
+Overall, the SkyWater130 PDK is an essential resource for IC designers seeking to leverage the capabilities of the SkyWater 130nm process technology. Its 
+comprehensive set of files, libraries, and guidelines streamline the design process and facilitate the creation of high-quality integrated circuits.
 
-   > *You can refer to skywater130 manual [here](https://skywater-pdk.readthedocs.io/en/main/)*
+> *You can refer to skywater130 manual [here](https://skywater-pdk.readthedocs.io/en/main/)*
 
  **Yosys -- Yosys Open SYnthesis Suite**
+ 
 ![image](https://github.com/SudeepGopavaram/Physical_Design_Using_OpenLane_Flow/assets/57873021/61878d69-c9fe-4f25-86e1-989ac45dea4d)
-
 This tool is used to perform any synthesis job it is a framework for verilog RTL synthesis and provides a basic set of synthesis algorithms for various application domains
+
+> *You can refer to Magic manual [here](https://yosyshq.readthedocs.io/projects/yosys/en/latest/)*
+
+**1.1 Ngspice**
+   
+  ![image](https://github.com/SudeepGopavaram/Design_and_analysis_of_nmos_and_pmos_using_sky130pdk/assets/57873021/9073cdd0-8e57-4177-9557-cc476fa6e9c2)
+
+  [Ngspice](https://ngspice.sourceforge.io/) is an open-source mixed-level/mixed-signal electronic circuit simulator widely used for circuit design, analysis, and verification. It allows users to 
+  model and simulate the behavior of electronic circuits using a variety of circuit elements, including resistors, capacitors, inductors, transistors, and more.
+
+  Ngspice provides a command-line interface for interaction and scripting, making it flexible and suitable for both interactive usage and automated workflows. It 
+  supports a wide range of circuit netlist formats, including the popular SPICE format, allowing seamless integration with existing design flows and tools.
+
+   Its versatility and accessibility make it a valuable asset in the field of electronic design automation.
+
+   > *You can refer to Ngspice manual [here](https://ngspice.sourceforge.io/docs.html)*
+
+  <section id = "magic" nane = "magic" class = "anchor" >
+
+ ## **1.2 Magic**
+   ![image](https://github.com/SudeepGopavaram/Design_and_analysis_of_nmos_and_pmos_using_sky130pdk/assets/57873021/57ec58d6-9023-4d6a-ae0e-eb2db101f1db)
+
+   [Magic](http://opencircuitdesign.com/magic/) is an open-source layout tool widely used in the field of digital integrated circuit design. It provides a powerful platform for creating and editing 
+   layouts of integrated circuits at various levels of abstraction, ranging from individual transistors to complete chip designs.
+   
+   Magic offers a range of features to enhance productivity and design efficiency. It includes a comprehensive set of drawing tools and alignment aids to facilitate 
+   precise and accurate layout creation. It supports design rule checking (DRC) and layout versus schematic (LVS) verification, helping to identify and resolve 
+   potential design errors and mismatches.
+
+   Its feature-rich nature, extensibility, and community support make it an invaluable asset in the realm of digital integrated circuit design.
+
+   > *You can refer to Magic manual [here](http://opencircuitdesign.com/magic/magic_docs.html)*
+
+</section>
 
 
 # Chip Planning Terminology
@@ -123,8 +157,12 @@ Die-Size should be able to accomodate the following entities:
 
 # Getting Started With the Flow
 
-**1. Running design synthesis using OpenLane flow and generate required output**
-*Design Used - picorv32a*
+## **1. Running design synthesis using OpenLane flow and generate required output**
+
+***Design Used - picorv32a***
+
+PicoRV32 is a CPU core that implements the RISC-V RV32IMC Instruction Set. It can be configured as RV32I, RV32IC, RV32IM, or RV32IMC core
+PicoRV32 is free and open hardware licensed under the ISC license. All features and data-sheet related to picoRV32 core can be obtained [here.](https://www.efabless.com/design_catalog/ip_block/92)
 
 Adding our new design 
 
@@ -172,8 +210,6 @@ exit
 
 ![Screenshot (361)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/e35a58e3-c35c-4b21-a3d6-a999092a20db)
 
-
-
 **2. Calculating Flop Ratio**
 
 ```math
@@ -188,7 +224,6 @@ Percentage\ of\ DFF's = Flop\ Ratio * 100
 
 ![Screenshot (362)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/21a4219b-fec5-4fda-8014-7788ba2d420a)
 
-
 ```math
 Flop\ Ratio = \frac{1613}{14876} = 0.1084
 ```
@@ -197,7 +232,7 @@ Flop\ Ratio = \frac{1613}{14876} = 0.1084
 Percentage\ of\ DFF's = 0.1084 * 100 = 10.84%
 ```
 
-**2. Florplan and Placement Stage**
+## **2. Florplan and Placement Stage**
 
 **FLOORPLAN STAGE**
 
@@ -224,41 +259,116 @@ Placement task is divided into multiple tasks like *global placement*, *legaliza
 
 We try to find approximate cell locations by spreading the cells over the layout reducing the cell density cell location is decided by their connectivity and we ignore the attributes of the cell such as its size and pin location this is known as *global placement*. After this cell can overlap and occupy illegal positions which are fixed during the legalization and detailed placement stage.
 
-![Screenshot (364)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/d191a6c6-a4d3-4a40-88df-68201a23a1f5)
+```
+configuration/
+├── checkers.tcl
+├── cts.tcl
+├── extraction.tcl
+├── floorplan.tcl
+├── general.tcl
+├── load_order.txt
+├── placement.tcl
+├── routing.tcl
+└── synthesis.tcl
+
+0 directories, 9 files
+```
+
+```
+# Now that we have entered the OpenLANE flow contained docker sub-system we can invoke the OpenLANE flow in the Interactive mode using the following command
+./flow.tcl -interactive
+
+# Now that OpenLANE flow is open we have to input the required packages for proper functionality of the OpenLANE flow
+package require openlane 0.9
+
+# Now the OpenLANE flow is ready to run any design and initially we have to prep the design creating some necessary files and directories for running a specific design which in our case is 'picorv32a'
+prep -design picorv32a
+
+# Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
+
+# Now we can run floorplan
+run_floorplan
+```
+
+![floorplan run](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/d191a6c6-a4d3-4a40-88df-68201a23a1f5)
 
 
-![Screenshot (365)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/b16fb76e-6095-477d-b196-ba10181e4072)
+![floorplan run](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/b16fb76e-6095-477d-b196-ba10181e4072)
 
 
+![floorplan run](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/d8062761-60c0-40d5-af50-2a22e7dff6ff)
 
 
-![Screenshot (366)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/d8062761-60c0-40d5-af50-2a22e7dff6ff)
+![floorplan log](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/409961df-15b4-4672-839b-391bfe61f806)
 
-![Screenshot (370)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/685dbb65-afe2-4017-b897-94eecd9d11e5)
+after succesgul flooprplan run there will be a log generated from which can extract following content
 
-![Screenshot (371)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/409961df-15b4-4672-839b-391bfe61f806)
+```math
+1000\ Unit\ Distance = 1\ Micron
+```
 
+```math
+Die\ width\ in\ unit\ distance = 6600685 - 0 = 660685
+```
 
+```math
+Die\ height\ in\ unit\ distance = 671405 - 0 = 671405
+```
 
-![Screenshot (369)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/058e242f-7196-46ba-a7b6-c4d73327d640)
+```math
+Distance\ in\ microns = \frac{value\ in\ Unit\ Distance}{1000}
+```
 
+```math
+Die\ width\ in\ microns = \frac{660685}{1000} = 660.685\ microns
+```
 
+```math
+Die\ height\ in\ microns = \frac{671405}{1000} = 671.405\ microns
+```
 
-![Screenshot (367)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/6078adf0-edf7-4c84-bb40-139a296ceb72)
+```math
+Area\ of\ Die = Die\ height\ * Die\ widht
+```
 
-![Screenshot (368)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/fef07c24-7ca1-46d4-9d1f-080611fc40f3)
+```math
+Area\ of\ Die = 660.685 * 671.405 = 443587.212425\ square\ microns
+```
+```bash
+# To invoke magic tool to view generated def file make sure in respective def generated dirctory
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
+```
 
+![floorplan def zoomed](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/685dbb65-afe2-4017-b897-94eecd9d11e5)
+
+![floorplan def](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/058e242f-7196-46ba-a7b6-c4d73327d640)
+
+after succesfully running floorplan stage now we will run the placement stage
+
+```bash
+# To run placement stage
+run_placement
+```
+
+```bash
+# Loading def file again after placement run make sure you are in respective def generated directory
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+```
+
+![placement def normal](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/6078adf0-edf7-4c84-bb40-139a296ceb72)
+
+![placement def zoomed](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/fef07c24-7ca1-46d4-9d1f-080611fc40f3)
+
+From the above results we can generated a floorplan with eqiudistant placement of ports, equidistant placement of Decap and Tap cells. And after placement standard cells are legally placed succesfully.
 
 
 # Glossary
 
-**Library Exchange Format (LEF)** : It includes unit definition, maufacturing grid, implant layer, Via, macro, macro pin statement etc
+**Library Exchange Format (LEF)** : It is given by the foundry which contains the abstract information about the designIt includes unit definition, maufacturing grid, implant layer, Via, macro, macro pin statement etc. It has various flavours like standard cell lef contains physical information about various cells, Tech lef contains physical information about metal layers like spacing, pitch etc.
 
-**Design Exchange Format (DEF)** : THis file consist of information regarding placement of macros, I/O pins, standard cells and other physical entities.
-Logic design data contains internal connectivity, grouping information and physical constraints.
-Physical deign data contains routing geometry, placement location and orientation 
-It is an input to various stages in physical design.
-In short it conatains dies are, tracks, components(macros), I/O pins, nets, Halo, vias, metal layers
+**Design Exchange Format (DEF)** : This file consist of information regarding placement of macros, I/O pins, standard cells and other physical entities. Initial DEF to the flow is given by the synthesis stage. It get updated at every stage of the physical design flow. Physical deign data contains routing geometry, placement location and orientation. It is an input to various stages in physical design.
+In short it conatains dies are, tracks, components(macros), I/O pins, nets, Halo, vias, metal layers.
 
 **Liberty Timimg File (LIB)** : It is a timimg model ontaining the cell delays, setup and hold time requirements. Composite current source (CCS) and non linear delay model (NLDM) are used to generate .lib files.
 Designs are needed to be tested for certain PVT corners and for every PVT corner timing of a cell is different and hence .lib file is for every PVT corner.
