@@ -34,7 +34,22 @@ Following are inputs during this step and the final output is GDS:
 * ECO (Engineering Change Order)
 * Write GDS
 
-What is pdk?
+**What is PDK**
+
+PDK stands for Process Design Kit. This is a kit which is basically provided by the foundry (fabrication vendors) to the customers for circuit design, circuit simulation, layout design, layout verification and parasitic extraction.
+
+**For circuit design**, the PDK contains P-Cells (Parameterized Cells) of schematic. These P-Cells are the symbols of MOSFETs, BJTs, Diodes, Resistors, Capacitors, Inductors and Varactors etc. It is called P-Cells because the devices property can be changed by changing the parameters. For example, the MOSFET has few parameters called W (width), L (Length), F (Finger) and M (Multiplier). By changing the above parameters one can change the MOSFET property. Similarly, the other P-cells mentioned above have also few parameters to change their properties.
+
+**For circuit simulation**, the PDK contains model files for the devices. This model file contains the model parameters of all the devices for a particular technology. During simulation of the circuits, the model file passed to the simulator along with the circuit netlist to complete the simulation. Few model parameters examples are VTO, GAMMA, LAMBDA, PHI, KP etc. Currently, BSIM-4 Model is used to simulate the circuit.
+
+**For layout design**, the PDK contains P-Cells (Parameterized Cells) of layouts. These P-Cells are the layouts of MOSFETs, BJTs, Diodes, Resistors, Capacitors, Inductors and Varactors etc. It is called P-Cells because the devices dimension can be changed by changing the parameters. The advantages of the P-Cells Layout is, the same P-Cell layout can be re-used for creating other layout with different dimensions.
+
+**For Layout Verification**, the PDK contains two rule files, one is DRC Rule File and the other one is LVS rule File. DRC rule file is used to do the design rule check (checking of spacing between layers, minimum and maximum widths, extension and enclosures etc.) in a layout. LVS rule file is used to check the correctness (nets, pins, device dimensions and device models should be same) between layout and schematic.
+
+**For parasitic extraction**, the PDK contains a PEX rule file. This rule file contains the information of sheet resistance and unit capacitance of all the layers. During parasitic extraction phase based on the layers and their dimensions parasitic resistance and capacitance extracted.
+
+Apart from the above, the PDK also contains standard cells, tech file, design rule manual (DRM) and some useful documents.
+Note that P-Cells are different from standard cell. In P-Cells we can change the property and dimension of the device by changing the parameters but in standard cell we can’t change anything.
 
 # OpenLane
 It is an automated RTL2GDSII flow which make use of several other opensource tools throughout the run to generate the GDSII like, OpenROAD, Yosys, Magic, Netgen, CVC, SPEF-Extractor, KLayout and other custom script for optimized flow.
@@ -161,10 +176,20 @@ Die-Size should be able to accomodate the following entities:
 
 ## **1. Running design synthesis using OpenLane flow and generate required output**
 
+**Logic Synthesis**
+
+It converts an RTL model to a functionally equivalent netlist, it requires following inputs
+
+**1. Design** - We provide RTL model which is typically represented in verilog to a logic synthesis tool. 
+
+**2. Technology library** - Tool creates a netlist by choosing *standard cells* from the given *technology library*. A library is modeled in Liberty format which defines attributes like delay, power and area of each standard cell.
+
+**3. Constraints** - It decides the design goals related to expected timing behaviour, such as maximum operable frequency. Constraints are typically specified in Synopsys Design Constraint (SDC) format.
+
 ***Design Used - picorv32a***
 
 PicoRV32 is a CPU core that implements the RISC-V RV32IMC Instruction Set. It can be configured as RV32I, RV32IC, RV32IM, or RV32IMC core
-PicoRV32 is free and open hardware licensed under the ISC license. All features and data-sheet related to picoRV32 core can be obtained [here.](https://www.efabless.com/design_catalog/ip_block/92)
+PicoRV32 is free and open hardware licensed under the ISC license. All features and data-sheet related to picoRV32 core can be obtained [here.](https://github.com/YosysHQ/picorv32)
 
 Adding our new design 
 
