@@ -34,6 +34,8 @@ Following are inputs during this step and the final output is GDS:
 * ECO (Engineering Change Order)
 * Write GDS
 
+What is pdk?
+
 # OpenLane
 It is an automated RTL2GDSII flow which make use of several other opensource tools throughout the run to generate the GDSII like, OpenROAD, Yosys, Magic, Netgen, CVC, SPEF-Extractor, KLayout and other custom script for optimized flow.
 
@@ -362,6 +364,130 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 
 From the above results we can generated a floorplan with eqiudistant placement of ports, equidistant placement of Decap and Tap cells. And after placement standard cells are legally placed succesfully.
 
+
+day -3 Characterization of standard cell inverter
+
+oen of the feature of openlane is we can make changes on the fly for the specific stage and rerrun that \stage agin to get the changes visible itselff.
+io place is opensource tool used to place the ios round the die.
+
+VTC - spice simulation
+what is spice netlist?
+* component connectivity
+* component values
+* identify nodes
+  * naming of nodes
+ 
+![spice .cir](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/bd6c09f4-c1e4-4df9-a9b4-f2cf5e53b4fd)
+
+ 
+```spice
+***MODEL Description***
+***NETLIST Description***
+M1 out in vdd vdd pmos W=0.375u L=0.25u
+M2 out in 0 0 nmos W=0.375u L=0.25u
+
+cload out 0 10f
+
+vdd vdd 0 2.5
+vin in 0 2.5
+***SIMULATION Commands***
+.op
+.dc vin 0 2.5 0.05
+*** .include  model file***
+.LIB lif file
+.end
+```
+
+```
+source *spice file* .cir
+run
+setplot - will show different plots available
+display - will show different voltaages and current to plot
+plot values
+```
+
+SPICE waveform : Wn=Wp=0.375u, Ln=Lp=0.25u
+(Wn/Ln=Wp/Lp=1.5)
+
+
+SPICE waveform : Wn=0.375u, Wp=0.9375u, Ln=Lp=0.25u
+(Wn/Ln=1.5, Wp/Lp=3.75)
+
+speciality of cmos
+cmos is a robust device
+switching threshold (static behaviour)
+
+
+```spice
+***MODEL Description***
+***NETLIST Description***
+M1 out in vdd vdd pmos W=0.375u L=0.25u
+M2 out in 0 0 nmos W=0.375u L=0.25u
+
+cload out 0 10f
+
+vdd vdd 0 2.5
+vin in 0 0 pulse 0 2.5 0 10p 10p 1n 2n
+***SIMULATION Commands***
+.op
+.tran 10p 4n
+*** .include  model file***
+.LIB lif file
+.end
+```
+
+![pulse waveform](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/6563146e-e468-42b0-a171-7ea7f14999a0)
+
+
+Wp/Lp          x.Wn/Ln
+"               1."
+"               2."
+"               3."
+"               4."
+"               5."
+
+
+
+rise delay     fall delay
+values            value
+
+sky130 stack diagram
+about magic tool
+standard cell inverter layout
+
+extraction
+pwd
+extract all
+ext2spice ctrhesh 0 rthresh 0 // to extract parasitics
+ext2spice
+
+netlist file
+
+rise time fall time definition
+
+wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
+tar xzf "
+
+implant layer are automatically generated in layout view they are not visible t view them  is to use cifc command to highlight those area
+
+.magicrc startup file for magic
+magic -d XR
+
+
+met3.mag
+drc why
+paint m3con
+cif see VIA2 
+feed clear
+
+1st exercise
+load poly.mag
+go to tech file in drc section
+find the specific rule in tech file
+*infront of layers means that specific layer and all the contacts containing rtthat layer
+aliiases
+tech load *file*
+drc check
 
 # Glossary
 
