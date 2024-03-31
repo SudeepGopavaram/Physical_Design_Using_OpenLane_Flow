@@ -392,15 +392,105 @@ From the above results we can generated a floorplan with eqiudistant placement o
 
 day -3 Characterization of standard cell inverter
 
-oen of the feature of openlane is we can make changes on the fly for the specific stage and rerrun that \stage agin to get the changes visible itselff.
-io place is opensource tool used to place the ios round the die.
+**SPICE Netlist** - It is a simple circuit description language which is composed of components with terminals attached to particular nodes. These group of components attached to nodes are called netlist.
 
-VTC - spice simulation
-what is spice netlist?
+It is organised into different parts. When a command or component description is continued on multiple linea, a "+" begins each following line so that spice knows it belongs to whatever is on the previous line.
+Any line to be ignored starts with a "*".
+In short a spice netlist consist of following things:
+
 * component connectivity
 * component values
 * identify nodes
-  * naming of nodes
+* naming of nodes
+
+**Spice Device Definition**
+**1. Capacitor Component** - 
+
+Cxx N+ N- VALUE [IC=INCOND]
+
+The parameters are:
+
+N+        = the positive termianl
+N-        = the negative terminal
+VALUE     = capacitance in farads
+IC=INCOND = starting voltage in simulation
+
+**2. MOSFET Component**
+
+MXX ND NG NS NB MNAME L=VAL W=VAL [AD=VAL] [AS=VAL] [PD=VAL] [PS=VAL] [NRD=VAL] [NRS=VAL] [OFF] 
++ [IC=VDS, VGS, VBS] [TEMP=T]
+
+The parameters are:
+
+ND                 = the name of the drain terminal
+NG                 = the name of the gate terminal
+NS                 = the name of the source terminal
+NB                 = the name of the bulk (backgate) terminal
+MNAME              = name of the model used
+L=VAL              = length of the gate in meters
+W=VAL              = width of the gate in meters
+AD=VAL             = area of the drain contact in sqare meters
+AS=VAL             = area of the source contact in sqare meters
+PD=VAL             = perimeter of the drain contact in meters
+PS=VAL             = perimeter of the source contact in meters
+NRD=VAL            = equivalent squares that make up the drain to determine the drain resistance
+NRS=VAL            = equivalent squares that make up the source to determine the source resistance
+OFF                = an optional starting condition for DC analysis
+IC=VDS, VGS, VBS>  = starting voltage in a simulation
+TEMP=T             = temperature of the transistor in Kelvin
+
+**3. Voltage Source Component**
+
+VXX N+ N- <<DC> DC/TRAN VALUE> <AC <ACMAG <ACPHASE>>> <DISTOF1 <F1MAG <F1PHASE>>> <DISTOF2 <F2MAG
++ <F2PHASE>>>
+  
+The parameters are:
+
+N+                          = the name of the positive terminal
+N-                          = the name of the negative terminal
+<<DC> DC/TRAN VALUE>        = the DC offset of the voltage source
+<<AC> ACMAG <ACPHASE>>>     = the AC magnitude and phase applied in an AC analysis
+<DISTOF1 <F1MAG <F1PHASE>>> = a distortion factor at frequency F1
+<DISTOF2 <F2MAG <F2PHASE>>> = a distortion factor at frequency F2
+
+The DC value can be changed in time by using functions such as pulse(), sin(), exp(), and pwl().
+The distortion factors only operate with a .disto command.
+
+**Current and Voltage Source DC Functions**
+
+**1. Pulse Function**
+
+PULSE(V1 V2 <TD> <TR> <TF> <PW> <PER>)
+
+The parameters are:
+
+V1  = the initial value (volts or amps)
+V2  = the pulsed value (volts or amps)
+TD  = the seconds before the first pulsed value
+TR  = the seconds it takes the pulse to rise from V1 to V2
+TF  = the seconds it takes the pulse to fall from V2 to V1
+PW  = the number of seconds the signal stays at V2
+PER = the time between each rising edge of the pulse after the first initial pulse
+
+oen of the feature of openlane is we can make changes on the fly for the specific stage and rerun that stage agin to get the changes visible itselff.
+io place is opensource tool used to place the ios round the die.
+
+# CMOS inverter VTC analysis
+
+In a CMOS circuit, PMOS transistors are used to implement logic functions when the input is at a low voltage level (logic 0), while NMOS transistors are used for logic functions when the input is at a high voltage level (logic 1). This arrangement allows for efficient power consumption since current flows only when the transistors switch states.
+
+The basic building block of a CMOS circuit is the CMOS inverter, which consists of a PMOS transistor and an NMOS transistor connected in series. The input is applied to both transistors' gates, and the output is taken from their common connection, known as the output node.
+
+When the input is at logic 0, the PMOS transistor turns on, creating a low resistance path between the supply voltage (VDD) and the output node, pulling the output to logic 1. At the same time, the NMOS transistor turns off, ensuring no current flows from the output node to ground. That is why PMOS is used in pull up network.
+
+On the other hand, when the input is at logic 1, the PMOS transistor turns off, while the NMOS transistor turns on. This allows the output node to be connected to ground, pulling the output to logic 0. The NMOS transistor acts as a low resistance path to discharge any charge on the output node. That is why NMOS is used in pull down network.
+
+CMOS circuits can be cascaded to implement more complex digital functions, such as logic gates (AND, OR, XOR, etc.), flip-flops, and arithmetic units. CMOS technology offers advantages such as low power consumption and high noise immunity, making it the dominant technology for digital circuit design. 
+
+
+ 
+
+
  
 ![spice .cir](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/bd6c09f4-c1e4-4df9-a9b4-f2cf5e53b4fd)
 
@@ -513,6 +603,15 @@ find the specific rule in tech file
 aliiases
 tech load *file*
 drc check
+
+day -4 
+the input and outpput port must lie in the intersection of vertical and horizontal track
+width of the st cell shud be in odd multiple of track pitch
+hieght shud be odd multiple  of track vertical pitch
+
+what are tracks in layout?
+
+manufacturing process
 
 # Glossary
 
