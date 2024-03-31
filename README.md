@@ -396,11 +396,15 @@ day -3 Characterization of standard cell inverter
 
 It is organised into different parts. When a command or component description is continued on multiple linea, a "+" begins each following line so that spice knows it belongs to whatever is on the previous line.
 Any line to be ignored starts with a "*".
+
 In short a spice netlist consist of following things:
 
 * component connectivity
+
 * component values
+
 * identify nodes
+
 * naming of nodes
 
 **Spice Device Definition**
@@ -411,8 +415,11 @@ Cxx N+ N- VALUE [IC=INCOND]
 The parameters are:
 
 N+        = the positive termianl
+
 N-        = the negative terminal
+
 VALUE     = capacitance in farads
+
 IC=INCOND = starting voltage in simulation
 
 **2. MOSFET Component**
@@ -423,20 +430,35 @@ MXX ND NG NS NB MNAME L=VAL W=VAL [AD=VAL] [AS=VAL] [PD=VAL] [PS=VAL] [NRD=VAL] 
 The parameters are:
 
 ND                 = the name of the drain terminal
+
 NG                 = the name of the gate terminal
+
 NS                 = the name of the source terminal
+
 NB                 = the name of the bulk (backgate) terminal
+
 MNAME              = name of the model used
+
 L=VAL              = length of the gate in meters
+
 W=VAL              = width of the gate in meters
+
 AD=VAL             = area of the drain contact in sqare meters
+
 AS=VAL             = area of the source contact in sqare meters
+
 PD=VAL             = perimeter of the drain contact in meters
+
 PS=VAL             = perimeter of the source contact in meters
+
 NRD=VAL            = equivalent squares that make up the drain to determine the drain resistance
+
 NRS=VAL            = equivalent squares that make up the source to determine the source resistance
+
 OFF                = an optional starting condition for DC analysis
+
 IC=VDS, VGS, VBS>  = starting voltage in a simulation
+
 TEMP=T             = temperature of the transistor in Kelvin
 
 **3. Voltage Source Component**
@@ -447,10 +469,15 @@ VXX N+ N- <<DC> DC/TRAN VALUE> <AC <ACMAG <ACPHASE>>> <DISTOF1 <F1MAG <F1PHASE>>
 The parameters are:
 
 N+                          = the name of the positive terminal
+
 N-                          = the name of the negative terminal
+
 <<DC> DC/TRAN VALUE>        = the DC offset of the voltage source
+
 <<AC> ACMAG <ACPHASE>>>     = the AC magnitude and phase applied in an AC analysis
+
 <DISTOF1 <F1MAG <F1PHASE>>> = a distortion factor at frequency F1
+
 <DISTOF2 <F2MAG <F2PHASE>>> = a distortion factor at frequency F2
 
 The DC value can be changed in time by using functions such as pulse(), sin(), exp(), and pwl().
@@ -460,16 +487,22 @@ The distortion factors only operate with a .disto command.
 
 **1. Pulse Function**
 
-PULSE(V1 V2 <TD> <TR> <TF> <PW> <PER>)
+PULSE (V1 V2 <TD> <TR> <TF> <PW> <PER>)
 
 The parameters are:
 
 V1  = the initial value (volts or amps)
+
 V2  = the pulsed value (volts or amps)
+
 TD  = the seconds before the first pulsed value
+
 TR  = the seconds it takes the pulse to rise from V1 to V2
+
 TF  = the seconds it takes the pulse to fall from V2 to V1
+
 PW  = the number of seconds the signal stays at V2
+
 PER = the time between each rising edge of the pulse after the first initial pulse
 
 oen of the feature of openlane is we can make changes on the fly for the specific stage and rerun that stage agin to get the changes visible itselff.
@@ -487,46 +520,66 @@ On the other hand, when the input is at logic 1, the PMOS transistor turns off, 
 
 CMOS circuits can be cascaded to implement more complex digital functions, such as logic gates (AND, OR, XOR, etc.), flip-flops, and arithmetic units. CMOS technology offers advantages such as low power consumption and high noise immunity, making it the dominant technology for digital circuit design. 
 
-
- 
-
-
- 
 ![spice .cir](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/bd6c09f4-c1e4-4df9-a9b4-f2cf5e53b4fd)
 
  
 ```spice
-***MODEL Description***
-***NETLIST Description***
-M1 out in vdd vdd pmos W=0.375u L=0.25u
-M2 out in 0 0 nmos W=0.375u L=0.25u
+** sch_path: /home/sudeep/.xschem/simulations/inverter_std.sch
+**.subckt inverter_std vin vout
 
-cload out 0 10f
+*.ipin vin
+*.opin vout
+XM1 vout vin GND GND sky130_fd_pr__nfet_01v8 L=0.25 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XM2 vout vin VDD VDD sky130_fd_pr__pfet_01v8 L=0.25 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+cload vout GND 10f
+VDD VDD GND 1.8
+vin vin GND 1.8
 
-vdd vdd 0 2.5
-vin in 0 2.5
-***SIMULATION Commands***
-.op
-.dc vin 0 2.5 0.05
-*** .include  model file***
-.LIB lif file
+**** begin user architecture code
+** opencircuitdesign pdks install
+.lib /usr/local/share/pdk/sky130A/libs.tech/combined/sky130.lib.spice tt
+
+.dc vin 0 1.8 0.01
+.save all
+
+**** end user architecture code
+**.ends
+.GLOBAL VDD
+.GLOBAL GND
 .end
 ```
 
 ```
-source *spice file* .cir
+# invoke the ngspice and source the repective netlist
+source <netlist>
+
+# Will run the simulatio
 run
+
+# To view the available plots
 setplot - will show different plots available
+
+# To view different voltages and current to plot
 display - will show different voltaages and current to plot
-plot values
+
+# To plot the waveforms
+plot <variable> .....
 ```
 
-SPICE waveform : Wn=Wp=0.375u, Ln=Lp=0.25u
-(Wn/Ln=Wp/Lp=1.5)
+SPICE waveform : Wn=Wp=1u, Ln=Lp=0.25u
+(Wn/Ln=Wp/Lp=4)
+![dc analysis)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/a60f14c4-a940-49d9-8b56-be5082d1be5b)
+
+![vtc plot](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/f9346f2e-fa5b-40fa-9841-9b6b0631b793)
 
 
-SPICE waveform : Wn=0.375u, Wp=0.9375u, Ln=Lp=0.25u
-(Wn/Ln=1.5, Wp/Lp=3.75)
+SPICE waveform : Wn=1u, Wp=2.5u, Ln=Lp=0.25u
+(Wn/Ln=4, Wp/Lp=10)
+
+![Screenshot (378)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/1ca809c8-a1e4-43ca-9228-5a4199ecca19)
+
 
 speciality of cmos
 cmos is a robust device
@@ -534,24 +587,40 @@ switching threshold (static behaviour)
 
 
 ```spice
-***MODEL Description***
-***NETLIST Description***
-M1 out in vdd vdd pmos W=0.375u L=0.25u
-M2 out in 0 0 nmos W=0.375u L=0.25u
+** sch_path: /home/sudeep/.xschem/simulations/inverter_std.sch
+**.subckt inverter_std vin vout
+*.ipin vin
+*.opin vout
+XM1 vout vin GND GND sky130_fd_pr__nfet_01v8 L=0.25 W=2.5 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XM2 vout vin VDD VDD sky130_fd_pr__pfet_01v8 L=0.25 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+cload vout GND 10f
+VDD VDD GND 1.8
+vin vin GND pulse 0 1.8 0 10p 10p 1n 2n
 
-cload out 0 10f
+**** begin user architecture code
+** opencircuitdesign pdks install
+.lib /usr/local/share/pdk/sky130A/libs.tech/combined/sky130.lib.spice tt
 
-vdd vdd 0 2.5
-vin in 0 0 pulse 0 2.5 0 10p 10p 1n 2n
-***SIMULATION Commands***
-.op
 .tran 10p 4n
-*** .include  model file***
-.LIB lif file
+.save all
+
+**** end user architecture code
+**.ends
+.GLOBAL VDD
+.GLOBAL GND
 .end
 ```
 
+Waveform for the pulse 0 2.5 0 10p 10p 1n 2n
 ![pulse waveform](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/6563146e-e468-42b0-a171-7ea7f14999a0)
+
+![tran](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/2db865f9-fd22-4fdd-bc7a-b60fa6e462ac)
+
+![waveform](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/18e32085-1ff9-450b-ac6e-8c7a2661bc0a)
+
+
 
 
 Wp/Lp          x.Wn/Ln
@@ -580,6 +649,8 @@ netlist file
 
 rise time fall time definition
 
+
+**Finding and fixing the problem in the DRC section of old magic tech file for skywater technology 
 wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
 tar xzf "
 
