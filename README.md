@@ -736,6 +736,8 @@ set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
 add_lefs -src $lefs
 ```
 
+![Screenshot (390)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/a557c341-7ffe-4419-a1d4-875c3e65d555)
+
 after the run we can see that there is a huge slack violation at the synthesis stage 
 ![Screenshot (388)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/fdcff63f-73b6-465f-9574-c41525a6f0b7)
 
