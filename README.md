@@ -676,11 +676,100 @@ tech load *file*
 drc check
 
 day -4 
-the input and outpput port must lie in the intersection of vertical and horizontal track
-width of the st cell shud be in odd multiple of track pitch
-hieght shud be odd multiple  of track vertical pitch
+
+**Some guidelines to follow while making standard cells**
+
+* The input and output ports of the standard cell should lie on the intersection of the vertical and horizontal tracks.
+* Width of the standard cell should be odd multiples of the horizontal track pitch.
+* Height of the standard cell should be even multiples of the vertical track pitch.
+
+  ```
+  # clone the following repository for standard cell layout using
+  git clone https://github.com/nickson-jose/vsdstdcelldesign.git
+
+  # open the custom inverter layout using
+  magic -T sky130A.tech sky130_inv.mag
+  ```
+
+  ![Screenshot (384)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/da9f6a0e-e336-424e-add4-4aea2b00c54d)
+
 
 what are tracks in layout?
+
+![track file](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/0cc16b8e-a9da-4b1b-9da2-020564f881e6)
+
+above file determines the following things
+
+layer\ name\ x\ Horizontal offset\ Horizontal track pitch
+layer\ name\ y\ Vertical offset\ Vertical track pitch
+
+
+It determines the pitch and offset value for every metal layer in the proceess in both horizontal and vertical direction
+
+
+![Screenshot (386)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/5e8559c2-4ee3-4222-b5c8-c476fe7d74dd)
+
+
+generating lef using the tkcon window
+
+```
+# generating lef
+lef write
+```
+
+![generated lef](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/6630447f-38bb-4fca-a446-79c7865c7a47)
+
+now we will try to use this custom standard cell in out picorv32a design so for that we will be copying all the library files and lef file and adding the required changes in the config.tcl file.
+
+```
+set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+set ::env(LIB_FASTEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib"
+set ::env(LIB_SLOWEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib"
+set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+
+set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
+```
+include the below commands to include the additional lef into the flow
+
+```
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+```
+
+after the run we can see that there is a huge slack violation at the synthesis stage 
+![Screenshot (388)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/fdcff63f-73b6-465f-9574-c41525a6f0b7)
+
+to meet the slcak requirements we will cahnge the parameters to improve timing and run synthesis
+
+```
+# Now once again we have to prep design so as to update variables
+prep -design picorv32a -tag 24-03_10-03 -overwrite
+
+# Addiitional commands to include newly added lef to openlane flow merged.lef
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+
+# Command to display current value of variable SYNTH_STRATEGY
+echo $::env(SYNTH_STRATEGY)
+
+# Command to set new value for SYNTH_STRATEGY
+set ::env(SYNTH_STRATEGY) "DELAY 3"
+
+# Command to display current value of variable SYNTH_BUFFERING to check whether it's enabled
+echo $::env(SYNTH_BUFFERING)
+
+# Command to display current value of variable SYNTH_SIZING
+echo $::env(SYNTH_SIZING)
+
+# Command to set new value for SYNTH_SIZING
+set ::env(SYNTH_SIZING) 1
+
+# Command to display current value of variable SYNTH_DRIVING_CELL to check whether it's the proper cell or not
+echo $::env(SYNTH_DRIVING_CELL)
+
+# Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
+```
 
 manufacturing process
 
