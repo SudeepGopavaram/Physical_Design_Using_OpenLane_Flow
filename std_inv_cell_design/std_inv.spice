@@ -1,0 +1,40 @@
+* SPICE3 file created from std_inv.ext - technology: sky130A
+
+* Scale adjusted as per grid size
+.option scale=0.01u
+
+* Including the pshort and nshort libs
+.include ./libs/pshort.lib
+.include ./libs/nshort.lib
+
+//.subckt std_inv A Y VPWR VGND
+
+* Changing pmos and nmos model name asper lib file
+M1000 Y A VGND VGND nshort_model.0 w=35 l=23
+*  ad=1.435n pd=0.152m as=1.365n ps=0.148m
+M1001 Y A VPWR VPWR pshort_model.0 w=37 l=23
+*  ad=1.443n pd=0.152m as=1.517n ps=0.156m
+
+* Adding neccessary voltages for simulation
+VDD VPWR 0 3.3V
+VSS VGND 0 0V
+
+* Adding load capacitance
+C6 Y 0 2fF
+
+* Adding input pulse
+Va A VGND PULSE(0V 3.3V 0 0.1ns 0.1ns 2ns 4ns)
+
+C0 A Y 0.075353f
+C1 VPWR Y 0.11654f
+C2 A VPWR 0.077431f
+C3 Y VGND 0.279009f
+C4 A VGND 0.45021f
+C5 VPWR VGND 0.781009f
+
+* specifying simulation type
+.tran 1n 20n
+.control
+run
+.endc
+.end
