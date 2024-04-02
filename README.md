@@ -660,6 +660,20 @@ implant layer are automatically generated in layout view they are not visible t 
 magic -d XR
 
 
+![poly.mag](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/da00447b-bd79-4ce3-8ca1-a45063e8f9ff)
+
+![corrected poly.9](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/b628ae8c-4a39-4554-bb71-12bb8e21d22c)
+
+
+
+![difftap](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/e2b1f563-0e86-43ac-be0b-31599d36f849)
+
+
+
+![corrected difftap.2](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/b058b59c-0c14-4f5c-a0a4-9fa3ce7b1c5b)
+
+[here](https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html#x)
+
 met3.mag
 drc why
 paint m3con
