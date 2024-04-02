@@ -635,6 +635,47 @@ Wp/Lp          x.Wn/Ln
 rise delay     fall delay
 values            value
 
+
+![std_inv](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/375d6fd8-1d56-4cf9-8472-c07c20fab351)
+
+extracting the spice netlist from the layout
+
+![Screenshot (405)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/3bb3daad-40be-4577-93eb-9491b21e7cc5)
+
+![extracted netlist](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/cdf6d9db-6339-40d8-9766-a673831ed09f)
+
+editing the above generated spice file by adding the necessary libraries and simulation command to run post layout simulation
+
+![edited netlist](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/5af244be-4179-4cbf-84e2-e0a1ffc90424)
+
+![Simulation](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/a2eb65ae-fb29-4883-a5f4-8d6f87ea906e)
+
+
+![plot](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/13c317e6-6de8-4e4e-bba7-f718f13cc3e8)
+
+rise time calculation
+
+![rise time](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/6c2ebe81-98a7-4a25-b413-9f53cd1fdca8)
+
+fall time calculation
+
+![fall time](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/f028d390-4a87-443f-adf4-acc6efda2e76)
+
+high to low propgation delay
+![TPHL](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/375c6cdc-77b7-49bc-9146-f15c277efbbf)
+
+low to high propogation delay
+![TPLH](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/e06e3988-501b-4f2d-b5b5-5897b64e5ff6)
+
+
+
+
+
+
+
+
+
+
 sky130 stack diagram
 about magic tool
 standard cell inverter layout
