@@ -107,7 +107,9 @@ comprehensive set of files, libraries, and guidelines streamline the design proc
 
  **Yosys -- Yosys Open SYnthesis Suite**
  
-![image](https://github.com/SudeepGopavaram/Physical_Design_Using_OpenLane_Flow/assets/57873021/61878d69-c9fe-4f25-86e1-989ac45dea4d)
+![image]
+(https://github.com/SudeepGopavaram/Physical_Design_Using_OpenLane_Flow/assets/57873021/61878d69-c9fe-4f25-86e1-989ac45dea4d)
+
 This tool is used to perform any synthesis job it is a framework for verilog RTL synthesis and provides a basic set of synthesis algorithms for various application domains
 
 > *You can refer to Magic manual [here](https://yosyshq.readthedocs.io/projects/yosys/en/latest/)*
@@ -192,12 +194,7 @@ PicoRV32 is a CPU core that implements the RISC-V RV32IMC Instruction Set. It ca
 PicoRV32 is free and open hardware licensed under the ISC license. All features and data-sheet related to picoRV32 core can be obtained [here.](https://github.com/YosysHQ/picorv32)
 
 Adding our new design 
-
 ```
-make mount
-./flow.tcl -design picorv32a -init_design_config -add_to_designs -config_file config.tcl
-it will create the respective directory and files
-
 picorv32a
 ├── config.tcl
 └── src
@@ -225,12 +222,6 @@ prep -design picorv32a
 
 # Now that the design is prepped and ready, we can run synthesis using following command
 run_synthesis
-
-# Exit from OpenLANE flow
-exit
-
-# Exit from OpenLANE flow docker sub-system
-exit
 ```
 
 ![Screenshot (360)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/3a7c600a-56bf-4f2f-befa-15a41551d9b9)
@@ -389,8 +380,7 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 
 From the above results we can generated a floorplan with eqiudistant placement of ports, equidistant placement of Decap and Tap cells. And after placement standard cells are legally placed succesfully.
 
-
-day -3 Characterization of standard cell inverter
+## 3. Desiging and Characterization of Standard Cell and Using it in the flow
 
 **SPICE Netlist** - It is a simple circuit description language which is composed of components with terminals attached to particular nodes. These group of components attached to nodes are called netlist.
 
@@ -408,19 +398,20 @@ In short a spice netlist consist of following things:
 * naming of nodes
 
 **Spice Device Definition**
+
 **1. Capacitor Component** - 
 
 Cxx N+ N- VALUE [IC=INCOND]
 
 The parameters are:
 
-N+        = the positive termianl
+***N+        = the positive termianl***
 
-N-        = the negative terminal
+***N-        = the negative terminal***
 
-VALUE     = capacitance in farads
+***VALUE     = capacitance in farads***
 
-IC=INCOND = starting voltage in simulation
+***IC=INCOND = starting voltage in simulation***
 
 **2. MOSFET Component**
 
@@ -429,37 +420,37 @@ MXX ND NG NS NB MNAME L=VAL W=VAL [AD=VAL] [AS=VAL] [PD=VAL] [PS=VAL] [NRD=VAL] 
 
 The parameters are:
 
-ND                 = the name of the drain terminal
+***ND                 = the name of the drain terminal***
 
-NG                 = the name of the gate terminal
+***NG                 = the name of the gate terminal***
 
-NS                 = the name of the source terminal
+***NS                 = the name of the source terminal***
 
-NB                 = the name of the bulk (backgate) terminal
+***NB                 = the name of the bulk (backgate) terminal***
 
-MNAME              = name of the model used
+***MNAME              = name of the model used***
 
-L=VAL              = length of the gate in meters
+***L=VAL              = length of the gate in meters***
 
-W=VAL              = width of the gate in meters
+***W=VAL              = width of the gate in meters***
 
-AD=VAL             = area of the drain contact in sqare meters
+***AD=VAL             = area of the drain contact in sqare meters***
 
-AS=VAL             = area of the source contact in sqare meters
+***AS=VAL             = area of the source contact in sqare meters***
 
-PD=VAL             = perimeter of the drain contact in meters
+***PD=VAL             = perimeter of the drain contact in meters***
 
-PS=VAL             = perimeter of the source contact in meters
+***PS=VAL             = perimeter of the source contact in meters***
 
-NRD=VAL            = equivalent squares that make up the drain to determine the drain resistance
+***NRD=VAL            = equivalent squares that make up the drain to determine the drain*** resistance
 
-NRS=VAL            = equivalent squares that make up the source to determine the source resistance
+***NRS=VAL            = equivalent squares that make up the source to determine the source resistance***
 
-OFF                = an optional starting condition for DC analysis
+***OFF                = an optional starting condition for DC analysis***
 
-IC=VDS, VGS, VBS>  = starting voltage in a simulation
+***IC=VDS, VGS, VBS>  = starting voltage in a simulation***
 
-TEMP=T             = temperature of the transistor in Kelvin
+***TEMP=T             = temperature of the transistor in Kelvin***
 
 **3. Voltage Source Component**
 
@@ -468,17 +459,17 @@ VXX N+ N- <<DC> DC/TRAN VALUE> <AC <ACMAG <ACPHASE>>> <DISTOF1 <F1MAG <F1PHASE>>
   
 The parameters are:
 
-N+                          = the name of the positive terminal
+***N+                          = the name of the positive terminal***
 
-N-                          = the name of the negative terminal
+***N-                          = the name of the negative terminal***
 
-<<DC> DC/TRAN VALUE>        = the DC offset of the voltage source
+***<<DC> DC/TRAN VALUE>        = the DC offset of the voltage source***
 
-<<AC> ACMAG <ACPHASE>>>     = the AC magnitude and phase applied in an AC analysis
+***<<AC> ACMAG <ACPHASE>>>     = the AC magnitude and phase applied in an AC analysis***
 
-<DISTOF1 <F1MAG <F1PHASE>>> = a distortion factor at frequency F1
+***<DISTOF1 <F1MAG <F1PHASE>>> = a distortion factor at frequency F1***
 
-<DISTOF2 <F2MAG <F2PHASE>>> = a distortion factor at frequency F2
+***<DISTOF2 <F2MAG <F2PHASE>>> = a distortion factor at frequency F2***
 
 The DC value can be changed in time by using functions such as pulse(), sin(), exp(), and pwl().
 The distortion factors only operate with a .disto command.
@@ -491,22 +482,21 @@ PULSE (V1 V2 <TD> <TR> <TF> <PW> <PER>)
 
 The parameters are:
 
-V1  = the initial value (volts or amps)
+***V1  = the initial value (volts or amps)***
 
-V2  = the pulsed value (volts or amps)
+***V2  = the pulsed value (volts or amps)***
 
-TD  = the seconds before the first pulsed value
+***TD  = the seconds before the first pulsed value***
 
-TR  = the seconds it takes the pulse to rise from V1 to V2
+***TR  = the seconds it takes the pulse to rise from V1 to V2***
 
-TF  = the seconds it takes the pulse to fall from V2 to V1
+***TF  = the seconds it takes the pulse to fall from V2 to V1***
 
-PW  = the number of seconds the signal stays at V2
+***PW  = the number of seconds the signal stays at V2***
 
-PER = the time between each rising edge of the pulse after the first initial pulse
+***PER = the time between each rising edge of the pulse after the first initial pulse***
 
-oen of the feature of openlane is we can make changes on the fly for the specific stage and rerun that stage agin to get the changes visible itselff.
-io place is opensource tool used to place the ios round the die.
+one of the feature of openlane is we can make changes the design configurations on the fly for the specific stage and rerun that stage agin to get the changes visible itself.
 
 # CMOS inverter VTC analysis
 
@@ -581,11 +571,6 @@ SPICE waveform : Wn=1u, Wp=2.5u, Ln=Lp=0.25u
 ![Screenshot (378)](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/1ca809c8-a1e4-43ca-9228-5a4199ecca19)
 
 
-speciality of cmos
-cmos is a robust device
-switching threshold (static behaviour)
-
-
 ```spice
 ** sch_path: /home/sudeep/.xschem/simulations/inverter_std.sch
 **.subckt inverter_std vin vout
@@ -614,27 +599,12 @@ vin vin GND pulse 0 1.8 0 10p 10p 1n 2n
 ```
 
 Waveform for the pulse 0 2.5 0 10p 10p 1n 2n
+
 ![pulse waveform](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/6563146e-e468-42b0-a171-7ea7f14999a0)
 
 ![tran](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/2db865f9-fd22-4fdd-bc7a-b60fa6e462ac)
 
 ![waveform](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/18e32085-1ff9-450b-ac6e-8c7a2661bc0a)
-
-
-
-
-Wp/Lp          x.Wn/Ln
-"               1."
-"               2."
-"               3."
-"               4."
-"               5."
-
-
-
-rise delay     fall delay
-values            value
-
 
 ![std_inv](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/375d6fd8-1d56-4cf9-8472-c07c20fab351)
 
@@ -650,7 +620,6 @@ editing the above generated spice file by adding the necessary libraries and sim
 
 ![Simulation](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/a2eb65ae-fb29-4883-a5f4-8d6f87ea906e)
 
-
 ![plot](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/13c317e6-6de8-4e4e-bba7-f718f13cc3e8)
 
 rise time calculation
@@ -662,79 +631,39 @@ fall time calculation
 ![fall time](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/f028d390-4a87-443f-adf4-acc6efda2e76)
 
 high to low propgation delay
+
 ![TPHL](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/375c6cdc-77b7-49bc-9146-f15c277efbbf)
 
 low to high propogation delay
+
 ![TPLH](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/e06e3988-501b-4f2d-b5b5-5897b64e5ff6)
 
 
+### Finding and fixing the problem in the DRC section of old magic tech file for skywater technology 
 
-
-
-
-
-
-
-
-sky130 stack diagram
-about magic tool
-standard cell inverter layout
-
-extraction
-pwd
-extract all
-ext2spice ctrhesh 0 rthresh 0 // to extract parasitics
-ext2spice
-
-netlist file
-
-rise time fall time definition
-
-
-**Finding and fixing the problem in the DRC section of old magic tech file for skywater technology 
+```
+# Download the tech file
 wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
 tar xzf "
 
-implant layer are automatically generated in layout view they are not visible t view them  is to use cifc command to highlight those area
-
-.magicrc startup file for magic
-magic -d XR
-
+implant layer are automatically generated in layout view they are not visible by default, to view them  is to use cifc command to highlight those area
 
 ![poly.mag](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/da00447b-bd79-4ce3-8ca1-a45063e8f9ff)
 
 ![corrected poly.9](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/b628ae8c-4a39-4554-bb71-12bb8e21d22c)
 
-
-
 ![difftap](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/e2b1f563-0e86-43ac-be0b-31599d36f849)
-
-
 
 ![corrected difftap.2](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/b058b59c-0c14-4f5c-a0a4-9fa3ce7b1c5b)
 
 [here](https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html#x)
 
-met3.mag
-drc why
-paint m3con
-cif see VIA2 
-feed clear
-
-1st exercise
-load poly.mag
-go to tech file in drc section
-find the specific rule in tech file
-*infront of layers means that specific layer and all the contacts containing rtthat layer
-aliiases
-tech load *file*
-drc check
-
-day -4 
+## 4. Pre-Layout timing analysis and CTS
 
 **Some guidelines to follow while making standard cells**
 
-* The input and output ports of the standard cell should lie on the intersection of the vertical and horizontal tracks.
+* The input and output ports of the standard cell should lie on the intersection of the 
+  vertical and horizontal tracks.
 * Width of the standard cell should be odd multiples of the horizontal track pitch.
 * Height of the standard cell should be even multiples of the vertical track pitch.
 
@@ -769,7 +698,7 @@ generating lef using the tkcon window
 
 ```
 # generating lef
-lef write
+  lef write
 ```
 
 ![generated lef](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/6630447f-38bb-4fca-a446-79c7865c7a47)
@@ -828,7 +757,10 @@ echo $::env(SYNTH_DRIVING_CELL)
 run_synthesis
 ```
 
-manufacturing process
+![openroad-gui](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/01e0458a-ffb6-450e-978d-465f65f08c88)
+
+
+
 
 # Glossary
 
