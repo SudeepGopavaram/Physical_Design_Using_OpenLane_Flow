@@ -2,13 +2,12 @@
 This repository contains a detailed description of a RTL2GDSII flow using a opensource OpenLane flow, design used for this run is PicoRV32 which is a CPU core that implements the RISC-V Instruction Set.
 
 ![Static Badge](https://img.shields.io/badge/OS-linux-orange)
-![Static Badge](https://img.shields.io/badge/EDA%20Tools-OpenLANE--Flow%2C_Yosys%2C_abc%2C_OpenROAD%2C_TritonRoute%2C_OpenSTA%2C_magic%2C_netgen%2C_GUNA-navy)
+![Static Badge](https://img.shields.io/badge/EDA%20Tools-OpenLANE--Flow%2C_Yosys%2C_abc%2C_OpenROAD%2C_TritonRoute%2C_OpenSTA%2C_magic%2C_netgen%2C_)
 ![Static Badge](https://img.shields.io/badge/languages-verilog%2C_bash%2C_TCL-crimson)
 ![GitHub last commit](https://img.shields.io/github/last-commit/SudeepGopavaram/Physical_Design_Using_OpenLane_Flow)
 ![GitHub language count](https://img.shields.io/github/languages/count/SudeepGopavaram/Physical_Design_Using_OpenLane_Flow)
 ![GitHub top language](https://img.shields.io/github/languages/top/SudeepGopavaram/Physical_Design_Using_OpenLane_Flow)
 ![GitHub repo size](https://img.shields.io/github/repo-size/SudeepGopavaram/Physical_Design_Using_OpenLane_Flow)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/SudeepGopavaram/Physical_Design_Using_OpenLane_Flow)
 ![GitHub repo file count (file type)](https://img.shields.io/github/directory-file-count/SudeepGopavaram/Physical_Design_Using_OpenLane_Flow)
 
 # Physical Design
@@ -107,8 +106,7 @@ comprehensive set of files, libraries, and guidelines streamline the design proc
 
  **Yosys -- Yosys Open SYnthesis Suite**
  
-![image]
-(https://github.com/SudeepGopavaram/Physical_Design_Using_OpenLane_Flow/assets/57873021/61878d69-c9fe-4f25-86e1-989ac45dea4d)
+![image](https://github.com/SudeepGopavaram/Physical_Design_Using_OpenLane_Flow/assets/57873021/61878d69-c9fe-4f25-86e1-989ac45dea4d)
 
 This tool is used to perform any synthesis job it is a framework for verilog RTL synthesis and provides a basic set of synthesis algorithms for various application domains
 
@@ -645,7 +643,7 @@ low to high propogation delay
 # Download the tech file
 wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
 tar xzf "
-
+```
 implant layer are automatically generated in layout view they are not visible by default, to view them  is to use cifc command to highlight those area
 
 ![poly.mag](https://github.com/SudeepGopavaram/SoC_Design_and_Chip_Planning_Using_OpenLane_Flow/assets/57873021/da00447b-bd79-4ce3-8ca1-a45063e8f9ff)
